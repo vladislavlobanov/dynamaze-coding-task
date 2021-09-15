@@ -31,6 +31,8 @@ https://firebasestorage.googleapis.com/v0/b/dynamaze---pwa-1550221436823.appspot
 * Animations
 * Desktop version
 * Tests
+* vuex
+* vue-router
 
 ## Tips 
 
