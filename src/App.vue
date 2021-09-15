@@ -1,17 +1,38 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <p>Data:</p>
+    {{ JSON.stringify(timeSlots, null, 4) }}
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+    name: 'App',
+    components: {
+    },
+    data: function() {
+        return {
+            timeSlots: [
+                {
+                    id: "1",
+                    ticketAmount: 10,
+                    begin: "10:00",
+                    price: {
+                        amount: 10,
+                        currency: "EUR",
+                    },
+                },
+                {
+                    id: "2",
+                    ticketAmount: 5,
+                    begin: "11:00",
+                    price: {
+                        amount: 10,
+                        currency: "EUR",
+                    },
+                },
+            ],
+        };
+    },
+};
 </script>
 
 <style>
