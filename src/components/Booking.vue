@@ -4,12 +4,30 @@
             v-for="timeSlot in timeSlots"
             :key="timeSlot.id"
         >
-            <button
-                :class="{ active : activeElGetterSetter == timeSlot.id }"
+            <div
+                class="smallButtonContainer"
                 @click="previousActiveEl = activeElGetterSetter; activeElGetterSetter = timeSlot.id; checkCounter(previousActiveEl, timeSlot.id)"
-            >
-                {{ timeSlot.begin }} {{ timeSlot.price.amount }}
-            </button>
+            >  
+                <div
+                    class="smallButton"
+                    :class="(activeElGetterSetter == timeSlot.id)?'active':'notActive'"
+                />
+                <div
+                    class="dataInsideSmallButton"
+                    :class="{whiteFont : activeElGetterSetter == timeSlot.id}"
+                >
+                    <div class="time">              
+                        {{ timeSlot.begin }}
+                    </div>
+                    <div
+                        class="middleLine"
+                        :class="{whiteBackground : activeElGetterSetter == timeSlot.id}"
+                    />
+                    <div class="price">              
+                        {{ timeSlot.price.amount }} €
+                    </div>
+                </div>
+            </div>
         </div>
         <prices
             v-if="activeElGetterSetter"
@@ -101,7 +119,86 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .active {
-    background-color:green;
+
+    .smallButtonContainer{
+        height: 60px;
+        width: 69.58000183105469px;
+        position:relative;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
     }
+
+    .smallButtonContainer::before {
+        content: "";
+        width: 19px;
+        height: 3px;
+        left: 42.58px;
+        top: 0px;
+        position: absolute;
+        background-color: white;
+        transform: skew(-45deg);
+        z-index: 1;
+    }
+
+    .smallButtonContainer::after {
+        content: "";
+        width: 19px;
+        height: 3px;
+        left: 8px;
+        top: 57px;
+        position: absolute;
+        background-color: white;
+        transform: skew(-45deg);
+    } 
+
+    .smallButton {
+        content:"";
+        height: 100%;
+        width: 100%;
+        border-radius: 4px;
+        box-sizing: border-box;
+        position: absolute;
+    }
+
+    .notActive {
+        background: rgba(255, 255, 255, 0.7);
+        border: 3px solid #55C57A;
+        z-index: 0;
+    } 
+
+    .dataInsideSmallButton {
+        
+        position: absolute;
+        color: #55C57A;
+        font-weight: 500;
+        font-size: 16px;
+        width: 100%;
+        line-height: 20px;
+        z-index: 3;
+
+    }
+
+    .middleLine {
+        border: 1px solid #55C57A;
+        margin-left: 10%;
+        margin-right: 10%;
+        border-radius: 4px;
+    }
+  
+    .active {
+        background: linear-gradient(225.08deg, #7ED56F 15.51%, #55C57A 100%);
+        z-index: 2;
+    }
+
+    .whiteFont {
+        color: #FFFFFF;
+    }
+
+    .whiteBackground {
+        border: 1px solid #FFFFFF;
+    }
+    
+
 </style>

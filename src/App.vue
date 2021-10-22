@@ -33,7 +33,7 @@ export default {
                 {
                     id: "1",
                     ticketAmount: 10,
-                    begin: "10:00",
+                    begin: "11:00",
                     price: {
                         amount: 10,
                         currency: "EUR",
@@ -57,12 +57,22 @@ export default {
 </script>
 
 <style>
+
+@font-face {
+  font-family: Montserrat;
+  src: url("../src/assets/Montserrat-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+} 
+
+@font-face {
+  font-family: Montserrat;
+  src: url("../src/assets/Montserrat-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+} 
+
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+    font-family: Montserrat;
 }
 </style>
