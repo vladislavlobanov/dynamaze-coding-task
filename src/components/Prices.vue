@@ -64,9 +64,14 @@
         </p>
         <p>{{ counter }}</p>
         <p>{{ showPrice(activeEl) }} EUR</p>
-        <button @click="bookingConfirmation(activeEl)">
-            Jetzt buchen
-        </button>
+        <div
+            class="buchen"
+            @click="bookingConfirmation(activeEl)"
+        >
+            <div class="textBuchen">
+                Jetzt buchen
+            </div>
+        </div>
     </div>
 </template>
 
@@ -173,6 +178,31 @@ export default {
 
 .increaseDescreaseSvg {
     position: absolute;
+}
+
+.buchen{
+    position: absolute;
+    width: 337.5px;
+    height: 38px;
+    padding: 9px, 76px, 9px, 76px;
+    border-radius: 10px;
+    background: linear-gradient(87.6deg, #FF9232 -28.36%, #FAC162 104.8%);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex; 
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.textBuchen {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #FFFFFF;
+    cursor: pointer;
 }
 
 </style>

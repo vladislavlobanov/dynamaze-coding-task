@@ -2,6 +2,13 @@
     <!-- <p>Data:</p>
     {{ JSON.stringify(timeSlots, null, 4) }} -->
     <div id="app">
+        <header>
+            <img
+                class="logo"
+                src="../src/assets/dynamaze_logo.png"
+                alt="Logo"
+            >
+        </header>
         <booking
             :time-slots="timeSlots"
         />
@@ -71,8 +78,24 @@ export default {
   font-weight: 500;
   font-style: normal;
 } 
+body {
+    box-sizing: border-box;
+    margin: 0;
+}
 
 #app {
     font-family: Montserrat;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+}
+
+.logo {
+    width: 166px;
+    height: 34px;
 }
 </style>

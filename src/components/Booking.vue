@@ -1,30 +1,36 @@
 <template>
     <div>
+        <section />
         <div
-            v-for="timeSlot in timeSlots"
-            :key="timeSlot.id"
+            class="bookingOptionsContainer"
         >
             <div
-                class="smallButtonContainer"
-                @click="previousActiveEl = activeElGetterSetter; activeElGetterSetter = timeSlot.id; checkCounter(previousActiveEl, timeSlot.id)"
-            >  
+                v-for="timeSlot in timeSlots"
+                :key="timeSlot.id"
+                class="bookingOption"
+            >
                 <div
-                    class="smallButton"
-                    :class="(activeElGetterSetter == timeSlot.id)?'active':'notActive'"
-                />
-                <div
-                    class="dataInsideSmallButton"
-                    :class="{whiteFont : activeElGetterSetter == timeSlot.id}"
-                >
-                    <div class="time">              
-                        {{ timeSlot.begin }}
-                    </div>
+                    class="smallButtonContainer"
+                    @click="previousActiveEl = activeElGetterSetter; activeElGetterSetter = timeSlot.id; checkCounter(previousActiveEl, timeSlot.id)"
+                >  
                     <div
-                        class="middleLine"
-                        :class="{whiteBackground : activeElGetterSetter == timeSlot.id}"
+                        class="smallButton"
+                        :class="(activeElGetterSetter == timeSlot.id)?'active':'notActive'"
                     />
-                    <div class="price">              
-                        {{ timeSlot.price.amount }} €
+                    <div
+                        class="dataInsideSmallButton"
+                        :class="{whiteFont : activeElGetterSetter == timeSlot.id}"
+                    >
+                        <div class="time">              
+                            {{ timeSlot.begin }}
+                        </div>
+                        <div
+                            class="middleLine"
+                            :class="{whiteBackground : activeElGetterSetter == timeSlot.id}"
+                        />
+                        <div class="price">              
+                            {{ timeSlot.price.amount }} €
+                        </div>
                     </div>
                 </div>
             </div>
@@ -119,6 +125,25 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+    section {
+        width: 100vw;
+        height:187px;
+        background-image: url("https://firebasestorage.googleapis.com/v0/b/dynamaze---pwa-1550221436823.appspot.com/o/public%2Fimg%2Fdeals%2Ffunfussball1.png?alt=media&token=448599c6-ffb7-43f4-afc9-dfb82ce426f0");
+        background-size: cover;
+        background-position: center;
+        border-radius: 20px 0px;
+    }
+
+    .bookingOptionsContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+    }
+    .bookingOption {
+        width: fit-content;
+    }
 
     .smallButtonContainer{
         height: 60px;
