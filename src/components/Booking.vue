@@ -36,8 +36,6 @@
             </div>
         </div>
         <prices
-            v-if="activeElGetterSetter"
-          
             :active-el="activeEl"
         
             :time-slots="timeSlots"
@@ -48,13 +46,8 @@
 
             :decrease-counter="decreaseCounter"
         />
-        <div v-else>
-            Please select a timeslot
-        </div>
     </div>
 </template>
-      <!-- v-model="activeElGetterSetter" -->
-            <!-- type="number" -->
 <script>
 import Prices from './Prices.vue';
 
@@ -72,8 +65,8 @@ export default {
     },
     data() {
         return {
-            previousActiveEl: 0,
-            activeEl: 0,
+            previousActiveEl: 1,
+            activeEl: parseInt(this.timeSlots[0].id),
             counter: 1,
         };
     },
@@ -89,13 +82,14 @@ export default {
                 this.activeEl = parseInt(el);
             },
         },
-
-
-        // activate:function(el){
-        //     this.activeEl = el;
-        // },
     },
+
     methods: {
+
+        findElement: function(findEl) {
+            return this.timeSlots.find((el) => el.id == findEl);
+        },
+
         increaseCounter: function() {
             this.counter++;
         },
@@ -103,17 +97,14 @@ export default {
             this.counter--;
         },
         checkCounter: function(previousActiveEl,activeEl) {
+            if (previousActiveEl == activeEl) return;
 
-            if (!previousActiveEl) {
-                return this.timeSlots.find((el) => el.id == activeEl).ticketAmount=this.timeSlots.find((el) => el.id == activeEl).ticketAmount - 1;
-            }
-           
-            if (previousActiveEl && this.counter <= this.timeSlots.find((el) => el.id == activeEl).ticketAmount ) {
-                this.timeSlots.find((el) => el.id == previousActiveEl).ticketAmount = this.timeSlots.find((el) => el.id == previousActiveEl).ticketAmount  + this.counter;
-                this.timeSlots.find((el) => el.id == activeEl).ticketAmount = this.timeSlots.find((el) => el.id == activeEl).ticketAmount  - this.counter;
+            if (this.counter <= this.findElement(activeEl).ticketAmount) {
+                this.findElement(previousActiveEl).ticketAmount = this.findElement(previousActiveEl).ticketAmount  + this.counter;
+                this.findElement(activeEl).ticketAmount = this.findElement(activeEl).ticketAmount  - this.counter;
             } else {
-                this.timeSlots.find((el) => el.id == previousActiveEl).ticketAmount = this.timeSlots.find((el) => el.id == previousActiveEl).ticketAmount  + this.counter;
-                this.timeSlots.find((el) => el.id == activeEl).ticketAmount=this.timeSlots.find((el) => el.id == activeEl).ticketAmount - 1;
+                this.findElement(previousActiveEl).ticketAmount = this.findElement(previousActiveEl).ticketAmount  + this.counter;
+                this.findElement(activeEl).ticketAmount=this.findElement(activeEl).ticketAmount - 1;
                 this.counter = 1;
             }
 
@@ -138,8 +129,11 @@ export default {
     .bookingOptionsContainer {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
-        width: 100%;
+        justify-content: space-between;
+        padding-top: 10px;
+        padding-bottom: 35px;
+        padding-left: 46px;
+        padding-right: 37.42px;
     }
     .bookingOption {
         width: fit-content;

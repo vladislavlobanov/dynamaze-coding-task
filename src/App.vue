@@ -38,7 +38,7 @@ export default {
         return {
             timeSlots: [
                 {
-                    id: "1",
+                    id: "2",
                     ticketAmount: 10,
                     begin: "11:00",
                     price: {
@@ -47,7 +47,7 @@ export default {
                     },
                 },
                 {
-                    id: "2",
+                    id: "3",
                     ticketAmount: 5,
                     begin: "11:00",
                     price: {
@@ -85,6 +85,7 @@ body {
 
 #app {
     font-family: Montserrat;
+    
 }
 
 header {
