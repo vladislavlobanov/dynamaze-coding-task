@@ -3,7 +3,7 @@
     <div id="prices">
         <!-- shows the number of tickets available -->
         <div class="ticketsNumber">
-            Nur noch {{ showNumberOfTickets(activeEl) }} vorhanden.
+            Nur noch {{ showNumberOfTickets(activeEl) }} Tickets vorhanden.
         </div> 
         <!-- container with "+", "N Tickets", "-" button -->
         <div class="counterContainer"> 
@@ -74,7 +74,7 @@
         <!-- Total price element -->
         <div class="totalPrice">
             <!-- handles currency representation on the screen ,00 -->
-            {{ parseFloat(showPrice(activeEl)).toFixed(2) }}€
+            {{ parseFloat(showPrice(activeEl)).toFixed(2).replace(".",",") }}€
         </div>
         <!-- "Jetz buchen" button -->
         <div class="positionBuchenGroup">
@@ -163,8 +163,7 @@ export default {
                 `Booking TimeSlot at ${
                     this.findElement(activeEl).begin
                 }, ${this.counter} tickets at ${
-                    this.findElement(activeEl).price.amount
-                } € succeeded`
+                    this.showPrice(activeEl)} € succeeded`
             );
         },
     },

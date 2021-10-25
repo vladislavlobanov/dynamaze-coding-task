@@ -38,7 +38,7 @@
                         />
                         <!-- parseFloat shows the price as a decimal with .00 -->
                         <div class="price">              
-                            {{ parseFloat(timeSlot.price.amount).toFixed(2) }}€
+                            {{ parseFloat(timeSlot.price.amount).toFixed(2).replace(".",",") }}€
                         </div>
                     </div>
                 </div>

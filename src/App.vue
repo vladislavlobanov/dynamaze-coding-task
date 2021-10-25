@@ -30,16 +30,16 @@ export default {
             // getting data about all timeSlots available
             timeSlots: [
                 {
-                    id: "2",
+                    id: "1",
                     ticketAmount: 10,
-                    begin: "11:00",
+                    begin: "10:00",
                     price: {
                         amount: 10,
                         currency: "EUR",
                     },
                 },
                 {
-                    id: "3",
+                    id: "2",
                     ticketAmount: 5,
                     begin: "11:00",
                     price: {
@@ -90,6 +90,7 @@ export default {
         align-items: center;
         height: 45px;
         background: #FFFFFF;
+        border-bottom: 2px solid #FF9232;
     }
     /* sizing of DynAmaze logo */
     .logo {
