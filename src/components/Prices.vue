@@ -1,5 +1,5 @@
 <template>
-    <div class="test">
+    <div id="prices">
         <div class="ticketsNumber">
             Nur noch {{ showNumberOfTickets(activeEl) }} vorhanden.
         </div> 
@@ -154,7 +154,7 @@ export default {
 </script>
 
 <style scoped>
-    .test {
+    #prices {
         flex-grow: 1;
         display: flex; 
         flex-direction: column;
