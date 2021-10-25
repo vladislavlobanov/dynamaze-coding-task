@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="booking">
         <section />
         <div
             class="bookingOptionsContainer"
@@ -11,25 +11,25 @@
             >
                 <div
                     class="smallButtonContainer"
-                    @click="previousActiveEl = activeElGetterSetter; activeElGetterSetter = timeSlot.id; checkCounter(previousActiveEl, timeSlot.id)"
+                    @click="previousActiveEl = activeEl; activeEl = parseInt(timeSlot.id); checkCounter(previousActiveEl, activeEl)"
                 >  
                     <div
                         class="smallButton"
-                        :class="(activeElGetterSetter == timeSlot.id)?'active':'notActive'"
+                        :class="(activeEl == timeSlot.id)?'active':'notActive'"
                     />
                     <div
                         class="dataInsideSmallButton"
-                        :class="{whiteFont : activeElGetterSetter == timeSlot.id}"
+                        :class="{whiteFont : activeEl == timeSlot.id}"
                     >
                         <div class="time">              
                             {{ timeSlot.begin }}
                         </div>
                         <div
                             class="middleLine"
-                            :class="{whiteBackground : activeElGetterSetter == timeSlot.id}"
+                            :class="{whiteBackground : activeEl == timeSlot.id}"
                         />
                         <div class="price">              
-                            {{ timeSlot.price.amount }} €
+                            {{ parseFloat(timeSlot.price.amount).toFixed(2) }}€
                         </div>
                     </div>
                 </div>
@@ -45,6 +45,8 @@
             :increase-counter="increaseCounter"
 
             :decrease-counter="decreaseCounter"
+
+            :find-element="findElement"
         />
     </div>
 </template>
@@ -70,20 +72,6 @@ export default {
             counter: 1,
         };
     },
-    computed:{
-
-        activeElGetterSetter: {
-            // getter
-            get: function () {
-                return this.activeEl;
-            },
-            // setter
-            set: function (el) {
-                this.activeEl = parseInt(el);
-            },
-        },
-    },
-
     methods: {
 
         findElement: function(findEl) {
@@ -113,10 +101,12 @@ export default {
 };
 </script>
 
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+    #booking {
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 45px);
+    }
     section {
         width: 100vw;
         height:187px;
@@ -130,13 +120,20 @@ export default {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        padding-top: 10px;
+        padding-top: 20px;
         padding-bottom: 35px;
         padding-left: 46px;
         padding-right: 37.42px;
+
+        /* distance between timeslots if there is a large number of options (portrait only) */
+        flex-flow: wrap;
     }
     .bookingOption {
         width: fit-content;
+
+        /* distance between timeslots if there is a large number of options (portrait only)*/
+        padding-right: 10px;
+        padding-bottom: 10px;
     }
 
     .smallButtonContainer{
@@ -188,7 +185,6 @@ export default {
     } 
 
     .dataInsideSmallButton {
-        
         position: absolute;
         color: #55C57A;
         font-weight: 500;
@@ -218,6 +214,4 @@ export default {
     .whiteBackground {
         border: 1px solid #FFFFFF;
     }
-    
-
 </style>

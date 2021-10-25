@@ -1,8 +1,7 @@
 <template>
-    <div>
+    <div class="test">
         <div class="ticketsNumber">
-            Number of tickets available:
-            {{ showNumberOfTickets(activeEl) }}
+            Nur noch {{ showNumberOfTickets(activeEl) }} vorhanden.
         </div> 
         <div class="counterContainer"> 
             <div
@@ -38,7 +37,7 @@
                 </div>
             </div>
             <div class="numberOfTickets">
-                {{ counter }} Tickets
+                {{ counter }} {{ counter > 1 ? "Tickets" : "Ticket" }}
             </div>
 
             <div
@@ -70,7 +69,7 @@
         
         
         <div class="totalPrice">
-            {{ showPrice(activeEl) }} EUR
+            {{ parseFloat(showPrice(activeEl)).toFixed(2) }}€
         </div>
         <div class="positionBuchenGroup">
             <div class="buchenContainer">
@@ -111,46 +110,42 @@ export default {
             type: Function,
             required: true,
         },
-    },
-    data() {
-        return {
-            test : this.timeSlots.find((el) => el.id == this.activeEl).ticketAmount,
-        };
+        findElement: {
+            type: Function,
+            required: true,
+        },
     },
     mounted() {
-        this.timeSlots.find((el) => el.id == this.activeEl).ticketAmount--;
+        this.findElement(this.activeEl).ticketAmount--;
     },
     methods: {
         increase: function(activeEl) {
-            if (
-                this.timeSlots.find((el) => el.id == activeEl).ticketAmount == 0
-            )
-                return;
+            if (!this.findElement(activeEl).ticketAmount) return;
 
             this.increaseCounter();
-            this.timeSlots.find((el) => el.id == activeEl).ticketAmount--;
+            this.findElement(activeEl).ticketAmount--;
         },
         decrease: function(activeEl) {
             if (this.counter == 1) return;
 
             this.decreaseCounter();
-            this.timeSlots.find((el) => el.id == activeEl).ticketAmount++;
+            this.findElement(activeEl).ticketAmount++;
         },
         showNumberOfTickets: function(activeEl) {
-            return this.timeSlots.find((el) => el.id == activeEl).ticketAmount;
+            return this.findElement(activeEl).ticketAmount+this.counter;
         },
         showPrice: function(activeEl) {
             return (
-                this.timeSlots.find((el) => el.id == activeEl).price.amount *
+                this.findElement(activeEl).price.amount *
                 this.counter
             );
         },
         bookingConfirmation: function(activeEl) {
             alert(
                 `Booking TimeSlot at ${
-                    this.timeSlots.find((el) => el.id == activeEl).begin
+                    this.findElement(activeEl).begin
                 }, ${this.counter} tickets at ${
-                    this.timeSlots.find((el) => el.id == activeEl).price.amount
+                    this.findElement(activeEl).price.amount
                 } € succeeded`
             );
         },
@@ -158,106 +153,122 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .test {
+        flex-grow: 1;
+        display: flex; 
+        flex-direction: column;
+    }
+    .ticketsNumber {
+        display: flex; 
+        justify-content: center;
+        padding-bottom: 16px;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        color: #222222;
+    }
 
+    .counterContainer {
+        display: flex;
+        align-items: center;
+        padding-left: 45px; 
+        padding-right: 45px;
+        justify-content: center;
+    }
 
-.ticketsNumber {
-    display: flex; 
-    justify-content: center;
-    padding-bottom: 16px;
-}
+    .decreaseIncreaseButtonContainer {
+        height: 40.5px;
+        width: 54px;
+        border-radius: 20.25px; 
+        position:relative;
+        overflow: hidden;
+        cursor: pointer;
+    }
 
-.counterContainer {
-    display: flex;
-    align-items: center;
-    padding-left: 45px; 
-    padding-right: 45px;
-    justify-content: center;
-}
+    .decreaseIncreaseButtonContainer::before {
+        content: "";
+        position: absolute;
+        border: 5px solid white;
+        box-sizing: border-box;
+        width: 58.6px;
+        bottom: 5.5px;
+        transform: rotate(-25.5deg) translate(0px, -100%);
+    }  
 
-.decreaseIncreaseButtonContainer {
-    height: 40.5px;
-    width: 54px;
-    border-radius: 20.25px; 
-    position:relative;
-    overflow: hidden;
-    cursor: pointer;
-}
+    .decreaseIncreaseButtonContainer.leftButton {
+        margin-right: auto;
+    }
 
- .decreaseIncreaseButtonContainer::before {
-    content: "";
-    position: absolute;
-    border: 5px solid white;
-    box-sizing: border-box;
-    width: 58.6px;
-    bottom: 5.5px;
-    transform: rotate(-25.5deg) translate(0px, -100%);
-}  
+    .numberOfTickets {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+    }
 
-.decreaseIncreaseButtonContainer.leftButton {
-    margin-right: auto;
-}
-.decreaseIncreaseButtonContainer.rightButton {
-    margin-left: auto;
-}
+    .decreaseIncreaseButtonContainer.rightButton {
+        margin-left: auto;
+    }
 
-.decreaseIncreaseButton {
-    height: 100%;
-    width: 100%;
-    background: #ffffff;
-    border: 2px solid #55c57a;
-    box-sizing: border-box;
-    border-radius: 20.25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    .decreaseIncreaseButton {
+        height: 100%;
+        width: 100%;
+        background: #ffffff;
+        border: 2px solid #55c57a;
+        box-sizing: border-box;
+        border-radius: 20.25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
+    .increaseDescreaseSvg {
+        position: absolute;
+    }
 
+    .totalPrice{
+        padding-top: 17.5px;
+        display: flex;
+        justify-content: center;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        color: #55C57A;
+    }
 
-.increaseDescreaseSvg {
-    position: absolute;
-}
+    .positionBuchenGroup {
+        height: 100%;
+        width: 100%;
+        flex-grow:1;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+    }
 
+    .buchenContainer {
+        padding-bottom: 29px;
+        padding-top: 9px;
+    }
 
-.totalPrice{
-    padding-top: 17.5px;
-    display: flex;
-    justify-content: center;
-}
+    .buchen{
+        width: 337.5px;
+        height: 38px;
+        border-radius: 10px;
+        background: linear-gradient(87.6deg, #FF9232 -28.36%, #FAC162 104.8%);
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+    }
 
-.positionBuchenGroup {
-    position: absolute; 
-    bottom: 29px;
-    width: 100%;
-}
-.buchenContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.buchen{
-    width: 337.5px;
-    height: 38px;
-    border-radius: 10px;
-    background: linear-gradient(87.6deg, #FF9232 -28.36%, #FAC162 104.8%);
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-}
-
-.textBuchen {
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    color: #FFFFFF;
-    cursor: pointer;
-}
-
-
-
+    .textBuchen {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        color: #FFFFFF;
+        cursor: pointer;
+    }
 </style>
